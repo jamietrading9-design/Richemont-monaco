@@ -1,23 +1,23 @@
 backend:
   name: git-gateway
-  branch: main # Falls dein GitHub-Branch 'master' heißt, bitte hier ändern
+  branch: main
 
-media_folder: "webseite/images" # Ordner für Bilder
+media_folder: "richemonte/webseite/images" # Falls du einen Bilderordner hast
 public_folder: "/images"
 
 collections:
   - name: "seiten"
     label: "Seiten Inhalte"
     files:
-      - file: "webseite/webseite.html"
+      - file: "richemonte/webseite/webseite.html"
         label: "Hauptseite"
         name: "hauptseite"
         fields:
-          - {label: "Titel der Seite", name: "title", widget: "string"}
-          - {label: "Inhalt (Text)", name: "body", widget: "markdown"}
-      - file: "webseite/showroom.html"
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Inhalt", name: "body", widget: "markdown"}
+      - file: "richemonte/webseite/showroom.html"
         label: "Showroom"
         name: "showroom"
         fields:
           - {label: "Titel", name: "title", widget: "string"}
-          - {label: "Showroom Text", name: "body", widget: "markdown"}
+          - {label: "Inhalt", name: "body", widget: "markdown"}
