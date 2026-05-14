@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Collections – Richemont</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    padding: 30px 40px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.menu-toggle {
+    font-family: 'Great Vibes', cursive; 
+    font-size: 32px;                     
+    letter-spacing: 2px;               
+    cursor: pointer;
+    color: #fff;
+    pointer-events: auto;
+    display: inline-block;
+    mix-blend-mode: difference;
+    text-decoration: none;
+    line-height: 1;                    
+}
+
+.logo-container {
+    position: fixed;
+    top: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2100;
+    /* FIX: Verhindert den Zeilenumbruch */
+    white-space: nowrap;
+    text-align: center;
+}
+
+.logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 28px; 
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.3s;
+    display: inline-block;
+}
+
+.logo:hover {
+    opacity: 0.7;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 100vh;
+    padding-top: 120px;
+    background: #080808;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+}
+.side-menu.active { left: 0; }
+.side-menu a {
+    color: #888;
+    text-decoration: none;
+    padding: 20px 40px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+.side-menu a:hover { color: #fff; }
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    z-index: 2500;
+}
+.overlay.active { opacity: 1; pointer-events: auto; }
+
+.collections-header {
+    margin-top: 150px;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.collections-header h1 {
+    font-size: 10px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-weight: 300;
+    opacity: 0.6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px;
+    max-width: 1600px;
+    margin: 0 auto 100px auto;
+}
+
+.collection-item {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+    text-decoration: none;
+    background: #050505;
+}
+
+.collection-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.8;
+}
+
+.collection-item:hover img {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.collection-info {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 10;
+}
+
+.collection-info h2 {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+footer {
+    background: #000;
+    padding: 100px 40px 40px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.footer-logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-bottom {
+    margin-top: 60px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .collection-item { height: 60vh; }
+    .footer-links { flex-direction: column; gap: 20px; }
+    
+    nav { padding: 20px 20px; }
+    
+    /* FIX: Logo auf Mobile etwas kleiner, damit es sicher in eine Zeile passt */
+    .logo {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collection-item { height: 50vh; }
+    .logo { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="menu-toggle" onclick="toggleMenu()">RD</div>
+</nav>
+
+<div class="logo-container">
+    <a href="index.html" class="logo">Richemont Monaco</a>
+</div>
+
+<div class="side-menu" id="sideMenu">
+    <a href="index.html">Home</a>
+    <a href="collections.html">Collections</a>
+    <a href="showroom.html">Showroom</a>
+    <a href="contact.html">Contact</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<main>
+    <div class="collections-header">
+        <h1>Collections</h1>
+    </div>
+
+    <section class="grid">
+        <a href="#" class="collection-item">
+            <img loading="lazy" decoding="async" src="Hemd-12.jpg" alt="Collection One">
+            <div class="collection-info"><h2></h2></div>
+        </a>
+        <a href="#" class="collection-item">
+            <img loading="lazy" decoding="async" src="Hemd-13.jpg" alt="Collection Two">
+            <div class="collection-info"><h2></h2></div>
+        </a>
+        <a href="#" class="collection-item">
+            <img loading="lazy" decoding="async" src="Hemd-13.jpg" alt="Collection Three">
+            <div class="collection-info"><h2></h2></div>
+        </a>
+        <a href="#" class="collection-item">
+            <img loading="lazy" decoding="async" src="Hemd-16.jpg" alt="Collection Four">
+            <div class="collection-info"><h2></h2></div>
+        </a>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <a href="index.html" class="footer-logo">Richemont Monaco</a>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="collections.html">Collections</a>
+            <a href="showroom.html">Showroom</a>
+            <a href="contact.html">Contact</a>
+            <a href="#">Instagram</a>
+            <a href="impressum.html">Impressum</a>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Richemont Monaco</div>
+    </div>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById('sideMenu').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+}
+</script>
+
+</body>
+</html>

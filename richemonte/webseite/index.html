@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Richemont Monaco</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 2000; 
+    padding: 30px 40px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.menu-toggle {
+    font-family: 'Great Vibes', cursive;
+    letter-spacing: 2px;                
+    cursor: pointer;
+    color: #fff;
+    pointer-events: auto;
+    display: inline-block;
+    mix-blend-mode: difference;
+    text-decoration: none;
+    line-height: 1;                   
+}
+
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero img {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.logo-container {
+    position: relative;
+    text-align: center;
+    z-index: 50;
+    transition: opacity 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container.is-sticky {
+    position: fixed;
+    top: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2100;
+}
+
+.logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 80px;
+    color: #fff;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.logo-container.is-sticky .logo {
+    font-size: 28px; 
+}
+
+.brand-design {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: -5px;
+    transition: opacity 0.2s;
+}
+
+.logo-container.is-sticky .brand-design {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hero-cta {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 12px 35px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    background: transparent;
+}
+
+.hero-cta:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+.logo-container.is-sticky .hero-cta {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0; left: -320px; width: 300px; height: 100vh;
+    padding-top: 120px;
+    background: #080808;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+}
+.side-menu.active { left: 0; }
+.side-menu a {
+    color: #888;
+    text-decoration: none;
+    padding: 20px 40px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.side-menu a:hover { color: #fff; }
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    z-index: 2500;
+}
+.overlay.active { opacity: 1; pointer-events: auto; }
+
+.editorial { background: #000; position: relative; z-index: 10; }
+.section { width: 100%; margin-bottom: 10px; overflow: hidden; }
+.full-bleed { height: 90vh; }
+.split { display: flex; height: 80vh; gap: 10px; padding: 0 10px; }
+.split div { flex: 1; }
+img { width: 100%; height: 100%; object-fit: cover; }
+
+.newsletter-section {
+    background: #000;
+    padding: 80px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+}
+
+.newsletter-container h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+    border-bottom: 1px solid #222;
+    padding-bottom: 8px;
+}
+
+.newsletter-form input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    width: 100%;
+    outline: none;
+}
+
+.newsletter-form button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding-left: 15px;
+}
+
+footer {
+    background: #000;
+    padding: 80px 40px 40px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+}
+
+.footer-logo {
+    font-family: 'Great Vibes', cursive;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 40px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.footer-bottom {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+}
+</style>
+
+<style>
+/* Mobile Optimierungen */
+@media (max-width: 768px) {
+    nav {
+        padding: 20px 20px;
+    }
+    
+    .menu-toggle {
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+    
+    .hero {
+        height: 80vh;
+    }
+    
+    .logo {
+        font-size: 60px;
+    }
+    
+    .logo-container.is-sticky .logo {
+        font-size: 24px;
+    }
+    
+    .brand-design {
+        font-size: 8px;
+        margin-top: -3px;
+    }
+    
+    .hero-cta {
+        margin-top: 30px;
+        padding: 10px 25px;
+        font-size: 9px;
+    }
+    
+    .side-menu {
+        width: 250px;
+        padding-top: 80px;
+    }
+    
+    .side-menu a {
+        padding: 15px 30px;
+        font-size: 11px;
+    }
+    
+    .section {
+        margin-bottom: 5px;
+    }
+    
+    .full-bleed {
+        height: 70vh;
+    }
+    
+    .split {
+        height: 60vh;
+        gap: 5px;
+        padding: 0 5px;
+    }
+    
+    .newsletter-section {
+        padding: 60px 15px;
+    }
+    
+    .newsletter-container h3 {
+        font-size: 11px;
+        margin-bottom: 20px;
+    }
+    
+    .newsletter-form input {
+        font-size: 10px;
+    }
+    
+    .newsletter-form button {
+        font-size: 9px;
+        padding-left: 10px;
+    }
+    
+    footer {
+        padding: 60px 20px 30px;
+    }
+    
+    .footer-logo {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+    
+    .footer-links {
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-links a {
+        font-size: 9px;
+    }
+    
+    .footer-bottom {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 50px;
+    }
+    
+    .hero-cta {
+        padding: 8px 20px;
+        font-size: 8px;
+    }
+    
+    .full-bleed {
+        height: 60vh;
+    }
+    
+    .split {
+        height: 50vh;
+    }
+    
+    .split div {
+        flex: 1 !important;
+    }
+    
+    .newsletter-section {
+        padding: 50px 10px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="menu-toggle" onclick="toggleMenu()">RD</div>
+</nav>
+
+<div class="side-menu" id="sideMenu">
+    <a href="index.html">Home</a>
+    <a href="collections.html">Collections</a>
+    <a href="showroom.html">Showroom</a>
+    <a href="contact.html">Contact</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<main>
+    <section class="hero" id="hero">
+        <img decoding="async" src="1.png" alt="Hero Background">
+        <div class="logo-container" id="mainLogo">
+            <a href="index.html" class="logo">Richemont Monaco</a>
+            <span class="brand-design">by Reichberg</span>
+            <a href="collections.html" class="hero-cta">Kollektion entdecken</a>
+        </div>
+    </section>
+
+    <div class="editorial">
+        <div class="section full-bleed"><img loading="lazy" decoding="async" src="Hemd-1.jpg" alt="E1"></div>
+        <div class="section split">
+            <div style="flex: 7;"><img loading="lazy" decoding="async" src="Hemd-11.jpg" alt="E2"></div>
+            <div style="flex: 3;"><img loading="lazy" decoding="async" src="Hemd-13.jpg" alt="E3"></div>
+        </div>
+    </div>
+</main>
+
+<section class="newsletter-section">
+    <div class="newsletter-container">
+        <h3>Newsletter</h3>
+        
+        <form class="newsletter-form" method="POST" action="https://c588d2f4.sibforms.com/serve/MUIFAFyZ-urNNjIBJvHK-P-NPg7hE_gUQ3_HwLKizFEUlB-qmAgyG6szwZZSSYupTtEcCWu7Ixw0oJkW-Z3ujD08gEU7P05I9-GkjCD5qK8jDjz9q_diWr4EIH3eq8jlWAvcBXsP-ueXu3RLQm0BmYJmP-lRNDRCY0Eb9AxWZSRkE5eLAy7OsVa1-3ouwRihp6xsk0mGehWMvp_yrw==">
+            <input type="email" name="EMAIL" placeholder="Ihre E-Mail-Adresse" required>
+            <button type="submit">Senden</button>
+
+            <input type="hidden" name="locale" value="de">
+            <input type="hidden" name="html_type" value="simple">
+        </form>
+    </div>
+</section>
+
+<footer>
+    <a href="index.html" class="footer-logo">Richemont Monaco</a>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="collections.html">Collections</a>
+        <a href="showroom.html">Showroom</a>
+        <a href="contact.html">Contact</a>
+        <a href="impressum.html">Impressum</a>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Richemont Monaco</div>
+    
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById('sideMenu').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+}
+
+const logo = document.getElementById('mainLogo');
+const hero = document.getElementById('hero');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY >= (hero.offsetHeight / 2) - 40) {
+        logo.classList.add('is-sticky');
+    } else {
+        logo.classList.remove('is-sticky');
+    }
+});
+</script>
+
+</body>
+</html>
